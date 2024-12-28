@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_database_session_management/to_do_model.dart';
 import 'package:hive_database_session_management/to_do_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,8 @@ class ToDoScreen extends StatefulWidget {
 class _ToDoScreenState extends State<ToDoScreen> {
   late ToDoProvider _toDoProvider;
 
+  late Box<ToDoModel> toDoModelBox;
+
   @override
   void initState() {
     super.initState();
@@ -22,6 +26,8 @@ class _ToDoScreenState extends State<ToDoScreen> {
       listen: false,
     );
 
+    toDoModelBox = Hive.box<ToDoModel>('todo');
+    _toDoProvider.toDoResponse = toDoModelBox.get('ToDoApiResponse');
     _toDoProvider.fetchToDoList();
   }
 
