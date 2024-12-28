@@ -12,6 +12,8 @@ class ToDoProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         toDoResponse = toDoModelFromJson(response.body);
+      } else {
+        throw Exception('Something went wrong');
       }
     } catch (e) {
       print('Something went wrong $e');
